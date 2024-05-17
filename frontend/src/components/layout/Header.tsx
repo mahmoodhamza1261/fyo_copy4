@@ -1,9 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect,useRef } from 'react'
 
 import { Link } from 'react-router-dom'
+import packages from '../../../public/chitral.jpg' 
+import hotels from '../../../public/hotel.jpeg' 
+import cars from '../../../public/civic.jpg' 
+import guides from '../../../public/travelguide.jpeg' 
 
 import menu from '/public/menu.svg'
-
+import DropdownMenu from "../../components/shared/DropdownMenu";
 
 import { useNavigate } from 'react-router-dom'
 
@@ -22,6 +26,33 @@ const Header = () => {
   }
   const userString = localStorage.getItem("user");
   const user = userString ? JSON.parse(userString) : null;
+
+  //dropdown
+  const [isDropdownVisible, setDropdownVisible] = useState(false);
+
+  const handleMouseEnter = () => {
+    setDropdownVisible(true);
+  };
+
+  const handleMouseLeave = () => {
+    setDropdownVisible(false);
+  };
+  const [open,setOpen]=useState(false)
+  const menuRef = useRef<HTMLDivElement>(null);
+  useEffect(()=>{
+   let handler=(e:any)=>{
+   if(menuRef.current && !menuRef.current.contains(e.target)){
+     setOpen(false)
+   }
+   
+   }
+   document.addEventListener("mousedown",handler);
+   return()=>{
+    document.removeEventListener("mousedown",handler)
+   }
+  })
+
+
   return (
     <header className="sticky top-0 z-10 bg-white w-full ">
       <div className="bg-white">
@@ -45,28 +76,62 @@ const Header = () => {
               <p className='mt-2 ml-1'>Talha</p> */}
             </div>
             {localStorage.getItem('user') ? <>
+            
+         
               {/* <Link to="/" className='mt-1'>
               About Us
             </Link>
               <Link to="/" className='mt-1'>
                 Contact
               </Link> */}
+
+<div>
+  <div className='menu-container' onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave} >
+
+    <div className='menu-trigger' onClick={()=>{setOpen(!open)}} >
+     <h1 >Bookings</h1>
+     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"/></svg>
+
+    </div>
+    {isDropdownVisible &&
+    <div className={` dropdown-menu ${open? 'active':'inactive'} `} >
+      {/* <h3>Booking <br /><span>Store</span></h3> */}
+      <ul>
+    <Link to="/booked-packages"><DropdownMenu  text={"BOOKED PACKAGES"}/></Link>  
+    <Link to="/booked-hotels"><DropdownMenu  text={"BOOKED HOTELS"}/></Link> 
+    <Link to="/booked-cars"><DropdownMenu text={"BOOKED VEHICLES"}/></Link>
+    <Link to="/booked-guides"> <DropdownMenu  text={"BOOKED GUIDES"}/></Link> 
+       
+      </ul>
+
+    </div>}
+
+  </div>
+</div>
+        
+
+
               {JSON.parse(localStorage.getItem('user')).email == 'admin@test.com' && JSON.parse(localStorage.getItem('user')).password == 'admin1234' && <Link to='/add-package' className='mt-1' >
                 Add Package
               </Link>}
+              
               <Link to='/package-list' className='mt-1' >
                 Tour Package
               </Link>
 
-              <Link to='/travelguidelisting' className='mt-1 '>
+              <Link to='/guide-list' className='mt-1  '>
                 Travel Guide
 
               </Link>
-              <Link to='/carslisting' className='mt-1 '>
+
+
+              
+              <Link to='/car-list' className='mt-1 '>
                 Car
 
               </Link>
-              <Link to='/hotelslisting' className='mt-1 '>
+              <Link to='/hotel-list' className='mt-1 '>
                 Hotel
 
               </Link>
@@ -94,9 +159,9 @@ const Header = () => {
 
                 <span className='mt-1'> Signup</span>
               </Link>
-            
-              </>
-              }
+
+            </>
+            }
 
 
 
@@ -131,11 +196,15 @@ const Header = () => {
               <Link to="/" className='mt-1'>
                 Contact
               </Link> */}
+
+
               <Link to='/' className='flex gap-1 hover:bg-secondarycolor hover:text-white'>
-                <svg xmlns="http://www.w3.org/2000/svg"  width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-circle-user-round hover:text-white bg-white h-[28px] ml-[-12px]"><path d="M18 20a6 6 0 0 0-12 0" /><circle cx="12" cy="10" r="4" /><circle cx="12" cy="12" r="10" /></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-circle-user-round hover:text-white bg-white h-[28px] ml-[-12px]"><path d="M18 20a6 6 0 0 0-12 0" /><circle cx="12" cy="10" r="4" /><circle cx="12" cy="12" r="10" /></svg>
 
                 <span className='mt-1 font-bold ml-[-3px] '>  {"( " + user ? user.name : '' + " )"} </span>
               </Link>
+
+             
               {JSON.parse(localStorage.getItem('user')).email == 'admin@test.com' && JSON.parse(localStorage.getItem('user')).password == 'admin1234' && <Link to='/add-package' className='mt-1 block hover:bg-secondarycolor hover:text-white font-bold' >
                 Add Package
               </Link>}
@@ -152,10 +221,45 @@ const Header = () => {
                 Cars
 
               </Link>
-              <Link to='/hotelslisting' className='mt-1 block hover:bg-secondarycolor hover:text-white font-bold'>
+              {/* //dropdown starts */}
+{/* <div>
+
+<label>
+
+  What do we eat?
+
+  <select>
+
+    <option value="fruit">Fruit</option>
+
+    <option value="vegetable">Vegetable</option>
+
+    <option value="meat">Meat</option>
+
+  </select>
+
+</label>
+
+</div> */}
+{/* //dropdown ends */}
+              <Link to='/hotel-list' className='mt-1 block hover:bg-secondarycolor hover:text-white font-bold'>
                 Hotels
 
               </Link>
+
+              <Link to='/booked-packages' className='mt-1 block hover:bg-secondarycolor hover:text-white font-bold' >
+                Booked Packages
+              </Link>
+              <Link to='/booked-hotels' className='mt-1 block hover:bg-secondarycolor hover:text-white font-bold' >
+                Booked Hotels
+              </Link>
+              <Link to='/booked-cars' className='mt-1 block hover:bg-secondarycolor hover:text-white font-bold' >
+                Booked Cars
+              </Link>
+              <Link to='/booked-guides' className='mt-1 block hover:bg-secondarycolor hover:text-white font-bold' >
+                Booked Guides
+              </Link>
+              
 
 
               <Link to="/" className='mt-1 block hover:bg-secondarycolor hover:text-white font-bold' onClick={() => logout()}>
