@@ -148,7 +148,10 @@ var [strr,setStrr]=useState('')
   }
 
 
-
+// const [cssclass,setCssClass]=useState('')
+// if(JSON.parse(localStorage.getItem('user')).email=='admin@test.com' ){
+//   setCssClass('ml-10')
+// }
 
   return (
     <div className=" justify-center mt-8 md:mx-[300px]">

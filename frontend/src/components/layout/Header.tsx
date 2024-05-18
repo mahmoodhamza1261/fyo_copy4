@@ -5,6 +5,7 @@ import packages from '../../../public/chitral.jpg'
 import hotels from '../../../public/hotel.jpeg' 
 import cars from '../../../public/civic.jpg' 
 import guides from '../../../public/travelguide.jpeg' 
+import Admin from '../Admin'
 
 import menu from '/public/menu.svg'
 import DropdownMenu from "../../components/shared/DropdownMenu";
@@ -54,7 +55,142 @@ const Header = () => {
 
 
   return (
-    <header className="sticky top-0 z-10 bg-white w-full ">
+    <>
+     {
+      localStorage.getItem("user") && JSON.parse(localStorage.getItem('user')).email=='admin@test.com' && JSON.parse(localStorage.getItem('user')).password=='admin1234' &&
+      <div>
+      
+           <button
+            className=" text-gray-600 focus:outline-none mb-0"
+            onClick={toggleMenu}
+          >
+            <img src={menu} alt='menu image' />
+
+            {/* <Menu className="h-6 w-6" /> */}
+          </button>
+       
+
+        {/* Side Menu */}
+        {isMenuOpen && (
+          <nav className=" bg-white px-8 space-y-4 absolute  left-0  shadow-2xl rounded-xl justify-center z-10">
+            {/* <div className="block px-4 py-2  hover:bg-secondarycolor rounded-md hover:text-white text-gray-800"> */}
+            {/* <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#6b3729" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-circle-user-round"><path d="M18 20a6 6 0 0 0-12 0" /><circle cx="12" cy="10" r="4" /><circle cx="12" cy="12" r="10" /></svg>
+              <p className='mt-2 ml-1'>Talha</p> */}
+            {/* </div> */}
+
+            {localStorage.getItem('user') ? <>
+              {/* <Link to="/" className='mt-1'>
+              About Us
+            </Link>
+              <Link to="/" className='mt-1'>
+                Contact
+              </Link> */}
+
+
+              <Link to='/' className='flex gap-1 hover:bg-secondarycolor hover:text-white'>
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-circle-user-round hover:text-white bg-white h-[28px] ml-[-12px]"><path d="M18 20a6 6 0 0 0-12 0" /><circle cx="12" cy="10" r="4" /><circle cx="12" cy="12" r="10" /></svg>
+
+                <span className='mt-1 font-bold ml-[-3px] '>  {"( " + user ? user.name : '' + " )"} </span>
+              </Link>
+
+             
+              {JSON.parse(localStorage.getItem('user')).email == 'admin@test.com' && JSON.parse(localStorage.getItem('user')).password == 'admin1234' && <Link to='/add-package' className='mt-1 block hover:bg-secondarycolor hover:text-white font-bold' >
+                Add Package
+              </Link>}
+
+              <Link to='/package-list' className='mt-1 block hover:bg-secondarycolor hover:text-white font-bold' >
+                Tour Package
+              </Link>
+
+              <Link to='/guide-list' className='mt-1 block hover:bg-secondarycolor hover:text-white font-bold'>
+                Travel Guide
+
+              </Link>
+              <Link to='/car-list' className='mt-1 block hover:bg-secondarycolor hover:text-white font-bold'>
+                Cars
+
+              </Link>
+              {/* //dropdown starts */}
+{/* <div>
+
+<label>
+
+  What do we eat?
+
+  <select>
+
+    <option value="fruit">Fruit</option>
+
+    <option value="vegetable">Vegetable</option>
+
+    <option value="meat">Meat</option>
+
+  </select>
+
+</label>
+
+</div> */}
+{/* //dropdown ends */}
+              <Link to='/hotel-list' className='mt-1 block hover:bg-secondarycolor hover:text-white font-bold'>
+                Hotels
+
+              </Link>
+
+              <Link to='/booked-packages' className='mt-1 block hover:bg-secondarycolor hover:text-white font-bold' >
+                Booked Packages
+              </Link>
+              <Link to='/booked-hotels' className='mt-1 block hover:bg-secondarycolor hover:text-white font-bold' >
+                Booked Hotels
+              </Link>
+              <Link to='/booked-cars' className='mt-1 block hover:bg-secondarycolor hover:text-white font-bold' >
+                Booked Cars
+              </Link>
+              <Link to='/booked-guides' className='mt-1 block hover:bg-secondarycolor hover:text-white font-bold' >
+                Booked Guides
+              </Link>
+              
+
+
+              <Link to="/" className='mt-1 block hover:bg-secondarycolor hover:text-white font-bold' onClick={() => logout()}>
+
+
+                <span> Logout  </span></Link>
+
+            </> : <>
+              {/* <Link to='/' className='flex gap-1 hover:bg-secondarycolor '>
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-circle-user-round h-[28px] mt-[3px]"><path d="M18 20a6 6 0 0 0-12 0" /><circle cx="12" cy="10" r="4" /><circle cx="12" cy="12" r="10" /></svg>
+              </Link> */}
+              <Link to='/login' className='mt-1 block hover:bg-secondarycolor hover:text-white font-bold' >
+
+                <span className='mt-1 block mb-3'> Login</span>
+              </Link>
+              <Link to='/signup' className='mt-1 block hover:bg-secondarycolor hover:text-white font-bold' >
+
+                <span className='mt-1 block mb-3'> Signup</span>
+              </Link>
+            </>}
+
+
+
+
+
+
+
+          </nav>
+        )}
+    </div>
+     }
+   
+{
+  (!localStorage.getItem("user") ||
+  (
+    localStorage.getItem("user") &&
+    JSON.parse(localStorage.getItem('user')).email !== 'admin@test.com' &&
+    JSON.parse(localStorage.getItem('user')).password !== 'admin1234'
+  )) && 
+  <header className="sticky top-0 z-10 bg-white w-full">
+      
+
       <div className="bg-white">
         <div className="flex justify-between mx-auto py-0  ml-2 mr-[32px]">
           <div className="mt-6 ml-[20px] ">
@@ -213,11 +349,11 @@ const Header = () => {
                 Tour Package
               </Link>
 
-              <Link to='/travelguidelisting' className='mt-1 block hover:bg-secondarycolor hover:text-white font-bold'>
+              <Link to='/guide-list' className='mt-1 block hover:bg-secondarycolor hover:text-white font-bold'>
                 Travel Guide
 
               </Link>
-              <Link to='/carslisting' className='mt-1 block hover:bg-secondarycolor hover:text-white font-bold'>
+              <Link to='/car-list' className='mt-1 block hover:bg-secondarycolor hover:text-white font-bold'>
                 Cars
 
               </Link>
@@ -290,7 +426,10 @@ const Header = () => {
           </nav>
         )}
       </div>
+
     </header>
+}
+    </>
   )
 }
 

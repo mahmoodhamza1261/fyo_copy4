@@ -169,6 +169,8 @@ const fetchStripe= async ()=>
         <div>
           {console.log("cost",cost)}
           {/* <BookingWidget cost={cost} />------------------------------------------ */}
+{
+    localStorage.getItem("user") && JSON.parse(localStorage.getItem('user')).email!=='admin@test.com' &&
           <div className="bg-white shadow p-4 rounded-2xl">
       <div className="text-2xl text-center">
         {/* Price: ${place.price} / per night */}
@@ -218,6 +220,7 @@ const fetchStripe= async ()=>
         )} */}
       </button>
     </div>
+}
         </div>
       </div>
       <div className="bg-white -mx-8 px-8 py-8 border-t">

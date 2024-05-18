@@ -4,6 +4,7 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+import Admin from './components/Admin'
 import StateContext from './components/StateContext'
 import { ConfigProvider } from 'antd';
 import theme from './theme/themeConfig';
@@ -58,6 +59,11 @@ function App() {
 
             path="/"
             element={<Home />}
+          ></Route>
+          <Route
+
+            path="/admin"
+            element={<Admin />}
           ></Route>
           <Route
 

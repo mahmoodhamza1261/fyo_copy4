@@ -7,8 +7,16 @@ import FallIntoTravel from "./FallIntoTravel";
 import mainimage from '../../public/mountain.jpg'
 import AboutUs from "./AboutUs";
 import Services from "./Services";
+import { Link, useNavigate } from 'react-router-dom';
 
 function Home() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    localStorage.getItem("user") && JSON.parse(localStorage.getItem('user')).email=='admin@test.com' && JSON.parse(localStorage.getItem('user')).password=='admin1234' && navigate('/admin')
+  }, [])
+  useEffect(() => {
+    localStorage.getItem("user") && JSON.parse(localStorage.getItem('user')).email!=='admin@test.com' && JSON.parse(localStorage.getItem('user')).password!=='admin1234' && navigate('/')
+  }, [])
 
   const [recommendation,setRecommendation]=useState([])
 

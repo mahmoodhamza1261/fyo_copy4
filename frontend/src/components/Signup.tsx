@@ -42,7 +42,10 @@ const app = initializeApp(firebaseConfig);
     password: null
   })
   useEffect(() => {
-    localStorage.getItem("user") && navigate("/")
+    localStorage.getItem("user") && JSON.parse(localStorage.getItem('user')).email!=='admin@test.com' && JSON.parse(localStorage.getItem('user')).password!=='admin1234' && navigate('/')
+  }, [])
+  useEffect(() => {
+    localStorage.getItem("user") && JSON.parse(localStorage.getItem('user')).email=='admin@test.com' && JSON.parse(localStorage.getItem('user')).password=='admin1234' && navigate('/admin')
   }, [])
 
  
@@ -107,7 +110,7 @@ const app = initializeApp(firebaseConfig);
           <input  type='text' placeholder='Enter Name'
             onChange={(event) => setState((prevState: any) => ({ ...prevState, name: event.target.value }))}></input>
           <input  type='text' placeholder='Enter Email' onChange={(event) => setState((prevState: any) => ({ ...prevState, email: event.target.value }))}></input>
-          <input  type='text' placeholder='Enter Password' onChange={(event) => setState((prevState: any) => ({ ...prevState, password: event.target.value }))}></input>
+          <input  type='password' placeholder='Enter Password' onChange={(event) => setState((prevState: any) => ({ ...prevState, password: event.target.value }))}></input>
           <button className='primary' onClick={() => register()}>Sign up</button>
           <div className="text-center py-2 text-gray-500">
             Already a member? <Link className="underline text-black" to={'/login'}>Login</Link>

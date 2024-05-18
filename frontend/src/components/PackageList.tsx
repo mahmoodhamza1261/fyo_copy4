@@ -39,7 +39,12 @@ function SearchPage() {
 
   const [state, setState] = useState([])
   const [items, setItems] = useState()
+  const [cssclass,setCssClass]=useState('')
+
   useEffect(() => {
+    if(JSON.parse(localStorage.getItem('user')).email=='admin@test.com' ){
+      setCssClass('md:ml-[170px]')
+    }
     getProducts()
   }, [])
   async function getProducts() {
@@ -93,8 +98,9 @@ function SearchPage() {
 
 
 
+
   return (
-    <div className="searchPage">
+    <div className={`SearchPage ${cssclass}`}>
       <div className="searchPage__info">
         <input type="text" placeholder='Search Packages' className='search-product-box marginLeft-9  ' onChange={(event) => { search(event.target.value.toLowerCase()) }} />
 

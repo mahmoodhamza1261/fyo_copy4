@@ -8,6 +8,9 @@ import youtube from "/public/youtube.svg";
 import { Link } from "react-router-dom";
 const MyFooter = () => {
   return (
+    <>
+{
+      localStorage.getItem("user") && JSON.parse(localStorage.getItem('user')).email!=='admin@test.com' && JSON.parse(localStorage.getItem('user')).password!=='admin1234' && 
     <div className="bg-primarycolor w-fit md:w-full   ">
     <div className="mt-[240px] md:mx-[70px] ">
       <div className=" relative rounded-[20px] bg-secondarycolor  min-w-[350px] -top-[160px] mx-2 md:mx-0   ">
@@ -140,6 +143,8 @@ const MyFooter = () => {
         </div>
       </div>
       </div>
+}
+      </>
   );
 };
 

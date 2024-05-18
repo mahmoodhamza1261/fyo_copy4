@@ -195,55 +195,20 @@ const fetchStripe= async ()=>
         <div>
           {console.log("cost",cost)}
           {/* <BookingWidget cost={cost} /> -------------------------------------------------*/}
+  {
+    localStorage.getItem("user") && JSON.parse(localStorage.getItem('user')).email!=='admin@test.com' &&
           <div className="bg-white shadow p-4 rounded-2xl">
       <div className="text-2xl text-center">
-        {/* Price: ${place.price} / per night */}
+        
       
         Price: PKR{cost}
       </div>
-      {/* <div className="border rounded-2xl mt-4">
-        <div className="flex">
-          <div className="py-3 px-4">
-            <label>Check in:</label>
-            <input type="date"
-                   value={checkIn}
-                   onChange={ev => setCheckIn(ev.target.value)}/>
-          </div>
-          <div className="py-3 px-4 border-l">
-            <label>Check out:</label>
-            <input type="date" value={checkOut}
-                   onChange={ev => setCheckOut(ev.target.value)}/>
-          </div>
-        </div>
-        <div className="py-3 px-4 border-t">
-          <label>Number of guests:</label>
-          <input type="number"
-                 value={numberOfGuests}
-                 onChange={(ev:any )=> setNumberOfGuests(ev.target.value)}/>
-        </div>
-        {numberOfNights > 0 && (
-          <div className="py-3 px-4 border-t">
-            <label>Your full name:</label>
-            <input type="text"
-                   value={name}
-                   onChange={ev => setName(ev.target.value)}/>
-            <label>Phone number:</label>
-            <input type="tel"
-                   value={phone}
-                   onChange={ev => setPhone(ev.target.value)}/>
-          </div>
-        )}
-      </div> */}
-      <button  className="primary mt-4" onClick={()=>fetchStripe()}>
+           <button  className="primary mt-4" onClick={()=>fetchStripe()}>
         Book 
-        {/* {numberOfNights > 0 && (
-          <span>
-             ${numberOfNights * place.price}
-             $40
-          </span>
-        )} */}
+       
       </button>
     </div>
+}
 
         </div>
       </div>
@@ -252,7 +217,7 @@ const fetchStripe= async ()=>
           <h2 className="font-semibold text-2xl">Extra info</h2>
         </div>
         <div className="mb-4 mt-2 text-sm text-gray-700 leading-5">
-          {/* {place.extraInfo} */}
+        
           {extraInfo}
           </div>
                 <div className="font-bold flex">

@@ -12,8 +12,12 @@ export default function Login() {
     email: null,
     password: null
   })
+
   useEffect(() => {
-    localStorage.getItem("user") && navigate("/")
+    localStorage.getItem("user") &&    JSON.parse(localStorage.getItem('user')).email!=='admin@test.com' && JSON.parse(localStorage.getItem('user')).password!=='admin1234' && navigate('/')
+  }, [])
+  useEffect(() => {
+    localStorage.getItem("user") &&    JSON.parse(localStorage.getItem('user')).email=='admin@test.com' && JSON.parse(localStorage.getItem('user')).password=='admin1234' && navigate('/admin')
   }, [])
   function login() {
     fetch("http://localhost:4000/login", {
@@ -43,7 +47,7 @@ export default function Login() {
         <h1 className="text-4xl text-center mb-4">Login</h1>
         <div className="max-w-md mx-auto">
           <input  type='text' placeholder='Enter Email' onChange={(event) => setState((prevState) => ({ ...prevState, email: event.target.value }))}></input>
-          <input  type='text' placeholder='Enter Password' onChange={(event) => setState((prevState) => ({ ...prevState, password: event.target.value }))}></input>
+          <input  type='password' placeholder='Enter Password' onChange={(event) => setState((prevState) => ({ ...prevState, password: event.target.value }))}></input>
           <button className='primary' onClick={() => login()}>Login</button>
           <div className="text-center py-2 text-gray-500">
             Do not have a account? <Link className="underline text-black" to={'/login'}>Signup</Link>
