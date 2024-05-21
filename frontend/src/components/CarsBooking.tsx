@@ -80,7 +80,7 @@ Tailor your rental to match your itinerary.
          
           <br />
           Max number of persons:
-          4       {/* {place.maxGuests} */}
+          4       {/* {place.maxPersons} */}
           </div>
         </div>
         <div>

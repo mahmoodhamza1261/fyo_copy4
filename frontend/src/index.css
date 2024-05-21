@@ -257,3 +257,11 @@ cursor: pointer;
   font-size: 14px;
   margin-left: 5px;
 }
+@media (min-width: 768px) {
+  /* Your styles here */
+  .example-class {
+    margin-top: -85px !important;
+    width:1000px !important;
+    /* Add other styles as needed */
+  }
+}

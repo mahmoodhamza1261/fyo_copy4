@@ -39,12 +39,21 @@ function SearchPage() {
 
   const [state, setState] = useState([])
   const [items, setItems] = useState()
+
+
   const [cssclass,setCssClass]=useState('')
+  const [cssclassone,setCssClassOne]=useState('')
+  
 
   useEffect(() => {
     if(JSON.parse(localStorage.getItem('user')).email=='admin@test.com' ){
-      setCssClass('md:ml-[170px]')
+      setCssClass('md:ml-[251px] md:-mt-[620px] md:overflow-y-scroll md:max-h-screen')
+    
+      setCssClassOne('md:fixed md:z-10 md:!mt-[-85px] md:!w-[1040px]')
+   
+      
     }
+    
     getProducts()
   }, [])
   async function getProducts() {
@@ -100,25 +109,25 @@ function SearchPage() {
 
 
   return (
-    <div className={`SearchPage ${cssclass}`}>
+    <div className={`SearchPage ${cssclass} `}>
       <div className="searchPage__info">
-        <input type="text" placeholder='Search Packages' className='search-product-box marginLeft-9  ' onChange={(event) => { search(event.target.value.toLowerCase()) }} />
+        <input type="text" placeholder='Search Packages' className={`search-product-box marginLeft-9   ${cssclassone}`}  onChange={(event) => { search(event.target.value.toLowerCase()) }} />
 
         
-        <button className={`border rounded-xl p-2   hover:text-white hover:bg-secondarycolor  ${recommended? 'bg-secondarycolor text-white' : 'bg-primarycolor'}`} onClick={handleClickRecommended} >Recommended</button>
+        {/* <button className={`border rounded-xl p-2   hover:text-white hover:bg-secondarycolor  ${recommended? 'bg-secondarycolor text-white' : 'bg-primarycolor'}`} onClick={handleClickRecommended} >Recommended</button>
         <button className={`border rounded-xl p-2   hover:text-white hover:bg-secondarycolor  ${highRated? 'bg-secondarycolor text-white' : 'bg-primarycolor'}`}  onClick={handleClickHighRated}>High rated</button>
-        <button className={`border rounded-xl p-2   hover:text-white hover:bg-secondarycolor  ${lowPrice? 'bg-secondarycolor text-white' : 'bg-primarycolor'}`} onClick={handleClickLowPrice}>Low Price</button>
+        <button className={`border rounded-xl p-2   hover:text-white hover:bg-secondarycolor  ${lowPrice? 'bg-secondarycolor text-white' : 'bg-primarycolor'}`} onClick={handleClickLowPrice}>Low Price</button> */}
       </div>
       {
         state.length > 0 ? state.map((item, i) =>
-
+         
           <div className="flex" >
             <Link to={'/tourpackagebooking/' + item._id}>
               <SearchResult
                 img={item.img}
                 location={item.name}
                 title={item.price}
-                description={item.strr}
+                description={item.perk}
                 star={4.73}
                 price={"PKR " + item.cost + " per person"}
                 total=""
@@ -133,6 +142,8 @@ function SearchPage() {
             {JSON.parse(localStorage.getItem('user')).email=='admin@test.com' && JSON.parse(localStorage.getItem('user')).password=='admin1234' &&<FontAwesomeIcon icon={faTrash} color='red' onClick={() => deleteProducts(item._id)} className='  ' />}
             </div>
           </div>
+         
+
 
         ) : <div className="h1 ml-[35px]">No Packages found</div>
       }

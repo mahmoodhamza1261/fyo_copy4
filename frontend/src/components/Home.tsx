@@ -10,6 +10,10 @@ import Services from "./Services";
 import { Link, useNavigate } from 'react-router-dom';
 
 function Home() {
+  // @ts-ignore
+  // @ts-ignore: Argument of type 'string | null' is not assignable to parameter of type 'string'.
+
+
   const navigate = useNavigate();
   useEffect(() => {
     localStorage.getItem("user") && JSON.parse(localStorage.getItem('user')).email=='admin@test.com' && JSON.parse(localStorage.getItem('user')).password=='admin1234' && navigate('/admin')
@@ -47,11 +51,11 @@ if(result.length > 0){
     let parsedResult = resultString?.substring(1, resultString.length - 1).split(',')
      .map(item => item.replace(/'/g, ''));
      console.log("parsedResult",parsedResult )
-     // shuffle array
-     for (let i = parsedResult.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [parsedResult[i], parsedResult[j]] = [parsedResult[j], parsedResult[i]];
-    }
+     // shuffle array 
+    //  for (let i = parsedResult.length - 1; i > 0; i--) {
+    //   const j = Math.floor(Math.random() * (i + 1));
+    //   [parsedResult[i], parsedResult[j]] = [parsedResult[j], parsedResult[i]];
+    // }
     const capitalizedResult = parsedResult.map((phrase) =>
       phrase
         .split(' ')

@@ -11,6 +11,7 @@ import menu from '/public/menu.svg'
 import DropdownMenu from "../../components/shared/DropdownMenu";
 
 import { useNavigate } from 'react-router-dom'
+import { useMediaQuery } from 'react-responsive';
 
 
 const Header = () => {
@@ -54,38 +55,35 @@ const Header = () => {
   })
 
 
+
+  //mobile screen
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+
+
+
   return (
     <>
      {
       localStorage.getItem("user") && JSON.parse(localStorage.getItem('user')).email=='admin@test.com' && JSON.parse(localStorage.getItem('user')).password=='admin1234' &&
-      <div>
+      <div className=''>
       
-           <button
+           {/* <button
             className=" text-gray-600 focus:outline-none mb-0"
             onClick={toggleMenu}
           >
             <img src={menu} alt='menu image' />
 
-            {/* <Menu className="h-6 w-6" /> */}
-          </button>
+            
+          </button> */}
        
 
-        {/* Side Menu */}
-        {isMenuOpen && (
+      
+        {/* {isMenuOpen && (
           <nav className=" bg-white px-8 space-y-4 absolute  left-0  shadow-2xl rounded-xl justify-center z-10">
-            {/* <div className="block px-4 py-2  hover:bg-secondarycolor rounded-md hover:text-white text-gray-800"> */}
-            {/* <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#6b3729" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-circle-user-round"><path d="M18 20a6 6 0 0 0-12 0" /><circle cx="12" cy="10" r="4" /><circle cx="12" cy="12" r="10" /></svg>
-              <p className='mt-2 ml-1'>Talha</p> */}
-            {/* </div> */}
+            
 
             {localStorage.getItem('user') ? <>
-              {/* <Link to="/" className='mt-1'>
-              About Us
-            </Link>
-              <Link to="/" className='mt-1'>
-                Contact
-              </Link> */}
-
+        
 
               <Link to='/' className='flex gap-1 hover:bg-secondarycolor hover:text-white'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-circle-user-round hover:text-white bg-white h-[28px] ml-[-12px]"><path d="M18 20a6 6 0 0 0-12 0" /><circle cx="12" cy="10" r="4" /><circle cx="12" cy="12" r="10" /></svg>
@@ -110,27 +108,7 @@ const Header = () => {
                 Cars
 
               </Link>
-              {/* //dropdown starts */}
-{/* <div>
 
-<label>
-
-  What do we eat?
-
-  <select>
-
-    <option value="fruit">Fruit</option>
-
-    <option value="vegetable">Vegetable</option>
-
-    <option value="meat">Meat</option>
-
-  </select>
-
-</label>
-
-</div> */}
-{/* //dropdown ends */}
               <Link to='/hotel-list' className='mt-1 block hover:bg-secondarycolor hover:text-white font-bold'>
                 Hotels
 
@@ -157,9 +135,7 @@ const Header = () => {
                 <span> Logout  </span></Link>
 
             </> : <>
-              {/* <Link to='/' className='flex gap-1 hover:bg-secondarycolor '>
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-circle-user-round h-[28px] mt-[3px]"><path d="M18 20a6 6 0 0 0-12 0" /><circle cx="12" cy="10" r="4" /><circle cx="12" cy="12" r="10" /></svg>
-              </Link> */}
+             
               <Link to='/login' className='mt-1 block hover:bg-secondarycolor hover:text-white font-bold' >
 
                 <span className='mt-1 block mb-3'> Login</span>
@@ -177,8 +153,66 @@ const Header = () => {
 
 
           </nav>
-        )}
+        )} */}
+
+
+
+
+
+        {/* //new admoin----------------------- */}
+{isMobile&& <button
+            className=" text-gray-600 focus:outline-none mb-0"
+            onClick={toggleMenu}
+          >
+            <img src={menu} alt='menu image' />
+
+            
+          </button>}
+          {(isMobile&& isMenuOpen)}
+      
+      {/* Sidebar */}
+      {
+        (isMobile&& isMenuOpen)||
+        <>
+      <aside className="w-64 bg-gray-800 text-white h-[700px] ">
+        <div>
+        <div className="p-4">
+          <h1 className="text-2xl font-semibold ">Admin Dashboard</h1>
+        </div>
+        <nav className="mt-5">
+          <Link to="/admin" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Dashboard</Link>
+          <Link to="/package-list" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Package List</Link>
+          <Link to="/hotel-list" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Hotel List</Link>
+          <Link to="/car-list" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Car List</Link>
+          <Link to="/guide-list" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Guide List</Link>
+          <Link to="/add-package" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Add Package</Link>
+          <Link to="/add-hotel" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Add Hotel</Link>
+          <Link to="/add-car" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Add Car</Link>
+          <Link to="/add-guide" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Add Guide</Link>
+          <Link to="/booked-packages" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Booked Packages</Link>
+          <Link to="/booked-hotels" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Booked Hotels</Link>
+          <Link to="/booked-cars" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Booked Cars</Link>
+          <Link to="/booked-guides" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Booked Guides</Link>
+          <Link to="/" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700" onClick={() => logout()}><span> Logout  </span></Link>
+        
+        </nav>
+        </div>
+      </aside>
+      
+</>
+}
+
     </div>
+
+
+
+
+
+
+
+
+
+
      }
    
 {

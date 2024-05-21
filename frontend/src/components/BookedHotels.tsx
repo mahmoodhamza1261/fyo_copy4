@@ -40,7 +40,18 @@ function SearchPage()
 
   const [state, setState] = useState([])
   const [items, setItems] = useState()
+
+  const [cssclass,setCssClass]=useState('')
+  const [cssclassone,setCssClassOne]=useState('')
   useEffect(() => {
+    if(JSON.parse(localStorage.getItem('user')).email=='admin@test.com' ){
+      setCssClass('md:ml-[251px] md:-mt-[620px] md:overflow-y-scroll md:max-h-screen')
+    
+      setCssClassOne('md:fixed md:z-10 md:!mt-[-85px] md:!w-[1040px]')
+   
+      
+    }
+    
     getProducts()
   }, [])
   async function getProducts() {
@@ -127,14 +138,14 @@ const render=()=>{
 
 
   return (
-    <div className="searchPage">
+    <div className={`SearchPage ${cssclass} `}>
       <div className="searchPage__info">
-        <input type="text" placeholder='Search Hotels' className='search-product-box marginLeft-9  ' onChange={(event) => { search(event.target.value.toLowerCase()) }} />
+        <input type="text" placeholder='Search Hotels' className={`search-product-box marginLeft-9   ${cssclassone}`} onChange={(event) => { search(event.target.value.toLowerCase()) }} />
 
-        
+{/*         
         <button className={`border rounded-xl p-2   hover:text-white hover:bg-secondarycolor  ${recommended? 'bg-secondarycolor text-white' : 'bg-primarycolor'}`} onClick={handleClickRecommended} >Recommended</button>
         <button className={`border rounded-xl p-2   hover:text-white hover:bg-secondarycolor  ${highRated? 'bg-secondarycolor text-white' : 'bg-primarycolor'}`}  onClick={handleClickHighRated}>High rated</button>
-        <button className={`border rounded-xl p-2   hover:text-white hover:bg-secondarycolor  ${lowPrice? 'bg-secondarycolor text-white' : 'bg-primarycolor'}`} onClick={handleClickLowPrice}>Low Price</button>
+        <button className={`border rounded-xl p-2   hover:text-white hover:bg-secondarycolor  ${lowPrice? 'bg-secondarycolor text-white' : 'bg-primarycolor'}`} onClick={handleClickLowPrice}>Low Price</button> */}
       </div>
       {/* {console.log("STAER",state.map((i)=>i.uid==[JSON.parse(localStorage.getItem("user")).email]))}
       {
@@ -147,7 +158,7 @@ const render=()=>{
                 img={item.img}
                 location={item.name}
                 title={item.price}
-                description={item.strr}
+                description={item.perk}
                 star={4.73}
                 price={"PKR " + item.cost + " per person"}
                 total=""
@@ -178,7 +189,7 @@ const render=()=>{
                                   img={item.img}
                                   location={item.name}
                                   title={item.price}
-                                  description={item.strr}
+                                  description={item.perk}
                                   star={4.73}
                                   price={"PKR " + item.cost + " per person"}
                                   total=""
@@ -192,7 +203,36 @@ const render=()=>{
                           
                         </div>
                     );
-                } else {
+                }else if(JSON.parse(localStorage.getItem('user')).email=='admin@test.com' ){
+                  // Render what you need if the condition is met
+                  return (
+                    <div key={index}>
+                      
+                       
+                     
+
+                        <div className="flex" >
+                     
+                            <SearchResult
+                              img={item.img}
+                              location={item.name}
+                              title={item.price}
+                              description={item.perk}
+                              star={4.73}
+                              price={"PKR " + item.cost + " per person"}
+                              total=""
+              
+                            />
+                       
+              
+                          
+                        </div>
+              
+                      
+                    </div>
+                );
+
+              } else {
                  
                 
                     // Render null if the condition is not met

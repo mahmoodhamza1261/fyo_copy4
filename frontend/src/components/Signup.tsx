@@ -50,6 +50,7 @@ const app = initializeApp(firebaseConfig);
 
  
   function register() {
+    createUserWithEmailAndPassword(auth,state.email,state.password).then((userCredential)=>{
     fetch("http://localhost:4000/signup", {
       method: "post",
       headers: {
@@ -59,16 +60,14 @@ const app = initializeApp(firebaseConfig);
     }).then((resp) => {
       resp.json().then((result) => {
         if (result.name) {
+          console.log("resulyt",result)
           if (result.name == "admin") {
-            createUserWithEmailAndPassword(auth,state.email,state.password).then((userCredential)=>{
+           
               alert("signup success")
               localStorage.setItem('user', JSON.stringify(result))
               navigate('/admin')
               console.log(userCredential);
-            }).catch((e=>{
-             console.log(e);
-             alert(e);
-            }))
+           
             
            
            
@@ -76,15 +75,12 @@ const app = initializeApp(firebaseConfig);
          
           if (result.name!="admin") 
           {
-            createUserWithEmailAndPassword(auth,state.email,state.password).then((userCredential)=>{
+            
             alert("signup success")
             localStorage.setItem('user', JSON.stringify(result))
             navigate('/')
             console.log(userCredential);
-          }).catch((e=>{
-           console.log(e);
-           alert(e);
-          }))
+        
          }
           
           // alert("signup success")
@@ -98,6 +94,10 @@ const app = initializeApp(firebaseConfig);
 
       })
     })
+  }).catch((e=>{
+    console.log(e);
+    alert(e);
+   }))
 
    
   }

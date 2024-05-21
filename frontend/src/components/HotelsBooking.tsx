@@ -63,7 +63,7 @@ High-speed Wi-Fi connectivity for convenience.
          
           <br />
           Max number of persons:
-          4       {/* {place.maxGuests} */}
+          4       {/* {place.maxPersons} */}
           </div>
         </div>
         <div>

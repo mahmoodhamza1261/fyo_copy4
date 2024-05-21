@@ -1,16 +1,15 @@
 const mongoose = require("mongoose");
-const productSchema = new mongoose.Schema({
+const BookedCarsSchema = new mongoose.Schema({
   uid:String,
   name: String,
   price: String,
   img: String,
   description: String,
   extraInfo: String,
-  category: String,
-  userId: String,
-  company: String,
-  maxGuests: String,
+  departure: String,
+  arrival: String,
+  maxPersons: String,
   cost: String,
-  strr: String
+  perk: String
 });
-module.exports = mongoose.model("booked-cars", productSchema)
+module.exports = mongoose.model("booked-cars", BookedCarsSchema)

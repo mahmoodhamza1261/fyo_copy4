@@ -26,7 +26,7 @@ export default function PlacesFormPage() {
   const [extraInfo,setExtraInfo] = useState('');
   const [checkIn,setCheckIn] = useState('');
   const [checkOut,setCheckOut] = useState('');
-  const [maxGuests,setMaxGuests] = useState(1);
+  const [maxPersons,setmaxPersons] = useState(1);
   const [price,setPrice] = useState(100);
 
  
@@ -90,8 +90,8 @@ export default function PlacesFormPage() {
           </div>
           <div>
             <h3 className="mt-2 -mb-1">Max number of guests</h3>
-            <input type="number" value={maxGuests}
-                   onChange={(ev:any) => setMaxGuests(ev.target.value)}/>
+            <input type="number" value={maxPersons}
+                   onChange={(ev:any) => setmaxPersons(ev.target.value)}/>
           </div>
           <div>
             <h3 className="mt-2 -mb-1">Price per night</h3>

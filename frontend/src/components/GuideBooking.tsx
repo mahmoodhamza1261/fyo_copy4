@@ -7,20 +7,25 @@ import { Context } from "./StateContext";
 import { useParams } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 export default function TourPackageBooking() {
+  const [cssclass,setCssClass]=useState('')
   useEffect(() => {
+
+    if(JSON.parse(localStorage.getItem('user')).email=='admin@test.com' ){
+      setCssClass('md:!ml-[261px] md:!-mt-[700px] md:!overflow-y-scroll md:!max-h-screen ')
+    }
     window.scrollTo(0, 0)
   }, [])
   const {id}=useParams();
   const [name, setName] = useState('')
   const [price, setPrice] = useState('')
-  const [category, setCategory] = useState('')
-  const [company, setCompany] = useState('')
+  const [departure, setdeparture] = useState('')
+  const [arrival, setarrival] = useState('')
   const [error, setError] = useState(false)
-  let [strr,setStrr]=useState('');
+  let [perk,setperk]=useState('');
   const [description, setDescription] = useState('');
   let [perks, setPerks] = useState('');
   const [extraInfo, setExtraInfo] = useState('');
-  const [maxGuests, setMaxGuests] = useState();
+  const [maxPersons, setmaxPersons] = useState();
   const [cost,setCost] = useState(100);
   const [img, setImg] = useState();
   useEffect(()=>{
@@ -33,15 +38,15 @@ export default function TourPackageBooking() {
         console.log(result);
         setName(result.name);
         setPrice(result.price);
-        setCategory(result.category);
-        setCompany(result.company);
+        setdeparture(result.departure);
+        setarrival(result.arrival);
         setImg(result.img);
         setDescription(result.description);
         setExtraInfo(result.extraInfo);
-        setMaxGuests(result.maxGuests);
+        setmaxPersons(result.maxPersons);
         setCost(result.cost);
-        setStrr(result.strr)
-        setPerks([result.strr.split(',')].flatMap((i)=>i));
+        setperk(result.perk)
+        setPerks([result.perk.split(',')].flatMap((i)=>i));
   
   
       })
@@ -79,7 +84,7 @@ const fetchStripe= async ()=>
         'Content-Type': "application/json",
         // authorization:"bearer "+JSON.parse(localStorage.getItem('token'))
       },
-      body: JSON.stringify({uid, name, price,img, description,extraInfo,category, company,maxGuests,cost,strr })
+      body: JSON.stringify({uid, name, price,img, description,extraInfo,departure, arrival,maxPersons,cost,perk })
     }).then((resp) => {
       resp.json().then((result) => {
         console.log("result",result)
@@ -131,7 +136,7 @@ const fetchStripe= async ()=>
 
     
   return (
-    <div className="mt-4 bg-gray-100  px-8 pt-8 justify-center ">
+    <div className={`mt-4 bg-gray-100  px-8 pt-8 justify-center  ${cssclass}` }>
       <h1 className="text-3xl">
         {/* {place.title} */}
         
@@ -154,15 +159,15 @@ const fetchStripe= async ()=>
           <div className="font-bold">
           Departure: 
           {/* {place.checkIn} */}
-          {category }
+          {departure }
           <br />
           Arrival: 
-          {company}
+          {arrival}
           {/* {place.checkOut} */}
          
           <br />
           Max number of persons:
-         {maxGuests}      {/* {place.maxGuests} */}
+         {maxPersons}      {/* {place.maxPersons} */}
           </div>
     
         </div>

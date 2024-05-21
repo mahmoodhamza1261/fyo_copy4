@@ -12,6 +12,16 @@ import menu from '/public/menu.svg'
 
 import { useNavigate } from 'react-router-dom'
 export default function Admin() {
+
+
+
+
+
+
+
+
+
+
     
     const [packages, setPackages] = useState([])
     const [hotels, setHotels] = useState([])
@@ -131,35 +141,35 @@ useEffect(()=>{
   
   return (
     <>
- <div className="flex min-h-screen bg-gray-100">
- <button
+ <div className="flex min-h-screen bg-gray-100 md:ml-[259px] md:mt-[-700px] ">
+ {/* <button
             className=" text-gray-600 focus:outline-none mb-0 "
             onClick={toggleMenu}
           >
-            <img src={menu} alt='menu image' className=''/>
+            <img src={menu} alt='menu image' className='mt-[-300px]'/>
 
-            {/* <Menu className="h-6 w-6" /> */}
-          </button>
+            
+          </button> */}
       {/* Sidebar */}
-      {isMenuOpen &&
-      <aside className="w-64 bg-gray-800 text-white ">
-        <div className="p-4">
-          <h1 className="text-2xl font-semibold">Admin Dashboard</h1>
-        </div>
-        <nav className="mt-5">
-          <Link to="/admin" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Dashboard</Link>
-          <Link to="/package-list" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Package List</Link>
-          <Link to="/hotel-list" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Hotel List</Link>
-          <Link to="/car-list" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Car List</Link>
-          <Link to="/guide-list" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Guide List</Link>
-          <Link to="/booked-packages" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Booke Packages</Link>
-          <Link to="/booked-hotels" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Booked Hotels</Link>
-          <Link to="/booked-cars" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Booked Cars</Link>
-          <Link to="/booked-guides" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Booked Guides</Link>
-          <Link to="/" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700" onClick={() => logout()}><span> Logout  </span></Link>
+      {
+      // <aside className="w-64 bg-gray-800 text-white ">
+      //   <div className="p-4">
+      //     <h1 className="text-2xl font-semibold">Admin Dashboard</h1>
+      //   </div>
+      //   <nav className="mt-5">
+      //     <Link to="/admin" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Dashboard</Link>
+      //     <Link to="/package-list" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Package List</Link>
+      //     <Link to="/hotel-list" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Hotel List</Link>
+      //     <Link to="/car-list" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Car List</Link>
+      //     <Link to="/guide-list" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Guide List</Link>
+      //     <Link to="/booked-packages" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Booke Packages</Link>
+      //     <Link to="/booked-hotels" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Booked Hotels</Link>
+      //     <Link to="/booked-cars" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Booked Cars</Link>
+      //     <Link to="/booked-guides" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Booked Guides</Link>
+      //     <Link to="/" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700" onClick={() => logout()}><span> Logout  </span></Link>
         
-        </nav>
-      </aside>
+      //   </nav>
+      // </aside>
 }
 
       {/* Main Content */}

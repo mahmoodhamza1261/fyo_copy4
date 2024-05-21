@@ -18,10 +18,10 @@ export default function UpdatePackage() {
   const {id}=useParams();
   const [name, setName] = useState('')
   const [price, setPrice] = useState('')
-  const [category, setCategory] = useState('')
-  const [company, setCompany] = useState('')
+  const [departure, setdeparture] = useState('')
+  const [arrival, setarrival] = useState('')
   const [error, setError] = useState(false)
-  let [strr,setStrr]=useState('')
+  let [perk,setPerk]=useState('')
 
 
 
@@ -35,7 +35,7 @@ export default function UpdatePackage() {
   const [extraInfo, setExtraInfo] = useState('');
   const [checkIn, setCheckIn] = useState('');
   const [checkOut, setCheckOut] = useState('');
-  const [maxGuests, setMaxGuests] = useState(1);
+  const [maxPersons, setmaxPersons] = useState(1);
   const [cost,setCost] = useState(100);
 
 
@@ -118,7 +118,7 @@ export default function UpdatePackage() {
 
   }
 
-  strr=strr.split(",");
+  perk=perk.split(",");
  
 
 
@@ -132,15 +132,15 @@ useEffect(()=>{
       console.log(result);
       setName(result.name);
       setPrice(result.price);
-      setCategory(result.category);
-      setCompany(result.company);
+      setdeparture(result.departure);
+      setarrival(result.arrival);
       setImg(result.img);
       setDescription(result.description);
       setExtraInfo(result.extraInfo);
-      setMaxGuests(result.maxGuests);
+      setmaxPersons(result.maxPersons);
       setCost(result.cost);
-      setStrr(result.strr)
-      setPerks([result.strr.split(',')].flatMap((i)=>i));
+      setPerk(result.perk)
+      setPerks([result.perk.split(',')].flatMap((i)=>i));
 
 
     })
@@ -149,18 +149,18 @@ useEffect(()=>{
 
 
 
-console.log("strr split",strr)
+console.log("perk split",perk)
 console.log("perks",perks)
- strr=perks.toString();
+ perk=perks.toString();
 
 
-// strr=perks.toString();
+// perk=perks.toString();
 
-console.log(strr)
+console.log(perk)
 
 
   function add() {
-    if (!name || !price || !category || !company ||!maxGuests ||!cost ||!description  ||!img ||!extraInfo) {
+    if (!name || !price || !departure || !arrival ||!maxPersons ||!cost ||!description  ||!img ||!extraInfo) {
       setError(true);
       return false;
     }
@@ -171,10 +171,10 @@ console.log(strr)
         authorization:"bearer "+JSON.parse(localStorage.getItem('token'))
 
       },
-      body: JSON.stringify({name,price,img,description,extraInfo,category,company,maxGuests,cost,strr}),
+      body: JSON.stringify({name,price,img,description,extraInfo,departure,arrival,maxPersons,cost,perk}),
     }).then((result) =>
       result.json().then((resp) =>{
-       alert('Restaurant Successfully updated');
+       alert('Package Successfully updated');
       navigate('/package-list')
       })
     );
@@ -226,23 +226,23 @@ console.log(strr)
           <h3 className="mt-2 -mb-1">Check in time</h3>
           <input type="date"
 
-            onChange={(event) => setCategory(event.target.value)} value={category}
+            onChange={(event) => setdeparture(event.target.value)} value={departure}
             placeholder="14" />
-    {error && !category && <span className='text-red-500 block -ml-[0px]'>Enter valid Checkin </span>}
+    {error && !departure && <span className='text-red-500 block -ml-[0px]'>Enter valid Checkin </span>}
         </div>
         <div>
           <h3 className="mt-2 -mb-1">Check out time</h3>
           <input type="date"
 
-            onChange={(event) => setCompany(event.target.value)}
-            placeholder="11" value={company} />
-          {error && !company && <span className='text-red-500 block -ml-[0px]'>Enter valid Checkout </span>}
+            onChange={(event) => setarrival(event.target.value)}
+            placeholder="11" value={arrival} />
+          {error && !arrival && <span className='text-red-500 block -ml-[0px]'>Enter valid Checkout </span>}
         </div>
         <div>
           <h3 className="mt-2 -mb-1">Max number of guests</h3>
-          <input type="number" value={maxGuests}
-            onChange={(ev: any) => setMaxGuests(ev.target.value)} />
-             {error && !maxGuests && <span className='text-red-500 block -ml-[0px]'>Enter valid maxGuests </span>}
+          <input type="number" value={maxPersons}
+            onChange={(ev: any) => setmaxPersons(ev.target.value)} />
+             {error && !maxPersons && <span className='text-red-500 block -ml-[0px]'>Enter valid maxPersons </span>}
         </div>
         <div>
           <h3 className="mt-2 -mb-1">Price per night</h3>

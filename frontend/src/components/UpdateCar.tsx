@@ -7,7 +7,11 @@ import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 
 
 export default function UpdatePackage() {
+  const [cssclass,setCssClass]=useState('')
   useEffect(() => {
+    if(JSON.parse(localStorage.getItem('user')).email=='admin@test.com' ){
+      setCssClass('md:!ml-[269px] md:!-mt-[680px] md:!overflow-y-scroll md:!max-h-screen md:!w-[1080px]  ')
+    }
     window.scrollTo(0, 0)
   }, [])
   useEffect(()=>{
@@ -18,10 +22,10 @@ export default function UpdatePackage() {
   const {id}=useParams();
   const [name, setName] = useState('')
   const [price, setPrice] = useState('')
-  const [category, setCategory] = useState('')
-  const [company, setCompany] = useState('')
+  const [departure, setdeparture] = useState('')
+  const [arrival, setarrival] = useState('')
   const [error, setError] = useState(false)
-  let [strr,setStrr]=useState('')
+  let [perk,setperk]=useState('')
 
 
 
@@ -35,7 +39,7 @@ export default function UpdatePackage() {
   const [extraInfo, setExtraInfo] = useState('');
   const [checkIn, setCheckIn] = useState('');
   const [checkOut, setCheckOut] = useState('');
-  const [maxGuests, setMaxGuests] = useState(1);
+  const [maxPersons, setmaxPersons] = useState(1);
   const [cost,setCost] = useState(100);
 
 
@@ -118,7 +122,7 @@ export default function UpdatePackage() {
 
   }
 
-  strr=strr.split(",");
+  perk=perk.split(",");
  
 
 
@@ -132,15 +136,15 @@ useEffect(()=>{
       console.log(result);
       setName(result.name);
       setPrice(result.price);
-      setCategory(result.category);
-      setCompany(result.company);
+      setdeparture(result.departure);
+      setarrival(result.arrival);
       setImg(result.img);
       setDescription(result.description);
       setExtraInfo(result.extraInfo);
-      setMaxGuests(result.maxGuests);
+      setmaxPersons(result.maxPersons);
       setCost(result.cost);
-      setStrr(result.strr)
-      setPerks([result.strr.split(',')].flatMap((i)=>i));
+      setperk(result.perk)
+      setPerks([result.perk.split(',')].flatMap((i)=>i));
 
 
     })
@@ -149,18 +153,18 @@ useEffect(()=>{
 
 
 
-console.log("strr split",strr)
+console.log("perk split",perk)
 console.log("perks",perks)
- strr=perks.toString();
+ perk=perks.toString();
 
 
-// strr=perks.toString();
+// perk=perks.toString();
 
-console.log(strr)
+console.log(perk)
 
 
   function add() {
-    if (!name || !price || !category || !company ||!maxGuests ||!cost ||!description  ||!img ||!extraInfo) {
+    if (!name || !price || !departure || !arrival ||!maxPersons ||!cost ||!description  ||!img ||!extraInfo) {
       setError(true);
       return false;
     }
@@ -171,7 +175,7 @@ console.log(strr)
         authorization:"bearer "+JSON.parse(localStorage.getItem('token'))
 
       },
-      body: JSON.stringify({name,price,img,description,extraInfo,category,company,maxGuests,cost,strr}),
+      body: JSON.stringify({name,price,img,description,extraInfo,departure,arrival,maxPersons,cost,perk}),
     }).then((result) =>
       result.json().then((resp) =>{
        alert('Car Successfully updated');
@@ -192,75 +196,73 @@ console.log(strr)
 
 
   return (
-    <div className=" justify-center mt-8 md:mx-[300px]">
+    <div className={ `justify-center mt-8 md:mx-[300px] ${cssclass} `}>
 
     <div className=" mx-auto">
-      {preInput('Name', 'Name for your car. should be short and catchy as in advertisement')}
-      <input type="text" onChange={(event) => setName((event.target.value.toLowerCase()))} placeholder="name, for example: Honda Civic 2023" value={name} />
-      {error && !name && <span className='text-red-500 block -ml-[0px]'>Enter valid title </span>}
-      {preInput('Address', 'place to go')}
-      <input type="text" onChange={(event) => setPrice(event.target.value.toLowerCase())} placeholder="address" value={price} />
-      {error && !price && <span className='text-red-500 block -ml-[0px]'>Enter valid address </span>}
-      {preInput('Photos','.png, .jpg')}
-      <input type="file"  accept="image/*" onChange={(e) => getFile(e)} />
-      <button className='bg-[whitesmoke] border-[1px] border-solid border-[gray] p-[3px] hover:bg-slate-300' onClick={() => uploadImage()}>upload</button>
-    <br />
-    <br />
-    {img ?
-      <img src={img} height={100} width={100} /> : ''}
-{error && !img && <span className='text-red-500 block -ml-[0px]'>Upload image</span>}
-      {/* <PhotosUploader addedPhotos={addedPhotos} onChange={setAddedPhotos} /> */}
-      {preInput('Description', 'description of the car')}
-      <textarea value={description} onChange={ev => setDescription(ev.target.value)}  />
-      {error && !description && <span className='text-red-500 block -ml-[0px]'>Enter valid description </span>}
-     
-      {preInput('Perks', 'select all the perks of your car')}
-      <div className="grid mt-2 gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
-        <Perks selected={perks} onChange={setPerks} />
-        
-        
-        
-      </div>
-      {preInput('Extra info', '')}
-      <textarea value={extraInfo} onChange={ev => setExtraInfo(ev.target.value)} />
-      {error && !extraInfo && <span className='text-red-500 block -ml-[0px]'>Enter valid info </span>}
-      {preInput('Check in&out times', 'add check in and out times, remember to have some time window between guests')}
-      <div className="grid gap-2 grid-cols-2 md:grid-cols-4">
-        <div>
-          <h3 className="mt-2 -mb-1">Check in time</h3>
-          <div>
-          <input type="date"
-
-            onChange={(event) => setCategory(event.target.value)}
-            placeholder="14" 
-            value={category}/>
+          {preInput('Name', 'Name for your car. should be short and catchy as in advertisement')}
+          <input type="text" onChange={(event) => setName((event.target.value.toLowerCase()))} placeholder="name, for example: Honda Civic 2023" value={name} />
+          {error && !name && <span className='text-red-500 block -ml-[0px]'>Enter valid title </span>}
+          {preInput('Address', 'place to go')}
+          <input type="text" onChange={(event) => setPrice(event.target.value.toLowerCase())} placeholder="address" value={price} />
+            {error && !price && <span className='text-red-500 block -ml-[0px]'>Enter valid address </span>}
+            {preInput('Photos','.png, .jpg')}
+            <input type="file"  accept="image/*" onChange={(e) => getFile(e)} />
+            <button className='bg-[whitesmoke] border-[1px] border-solid border-[gray] p-[3px] hover:bg-slate-300' onClick={() => uploadImage()}>upload</button>
+          <br />
+          <br />
+          {img ?
+            <img src={img} height={100} width={100} /> : ''}
+    {error && !img && <span className='text-red-500 block -ml-[0px]'>Upload image</span>}
+            {/* <PhotosUploader addedPhotos={addedPhotos} onChange={setAddedPhotos} /> */}
+            {preInput('Description', 'description of the car')}
+            <textarea value={description} onChange={ev => setDescription(ev.target.value)} />
+            {error && !description && <span className='text-red-500 block -ml-[0px]'>Enter valid description </span>}
+           
+            {preInput('Perks', 'select all the perks of your car')}
+            <div className="grid mt-2 gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+              <Perks selected={perks} onChange={setPerks} />
+              
+              
+              
             </div>
-          {error && !category && <span className='text-red-500 block -ml-[0px]'>Enter valid Checkin </span>}
+            {preInput('Extra info', '')}
+            <textarea value={extraInfo} onChange={ev => setExtraInfo(ev.target.value)} />
+            {error && !extraInfo && <span className='text-red-500 block -ml-[0px]'>Enter valid info </span>}
+            {preInput('', '')}
+            <div className="grid gap-2 grid-cols-2 md:grid-cols-4">
+              <div>
+                <h3 className="mt-2 -mb-1">Departure</h3>
+                <div>
+                <input type="date"
+    
+                  onChange={(event) => setdeparture(event.target.value)}
+                  placeholder="14" value={departure} />
+                  </div>
+                {error && !departure && <span className='text-red-500 block -ml-[0px]'>Enter valid departure date </span>}
+              </div>
+              <div>
+                <h3 className="mt-2 -mb-1">Arrival</h3>
+                <input type="date"
+    
+                  onChange={(event) => setarrival(event.target.value)}
+                  placeholder="11" value={arrival} />
+                {error && !arrival && <span className='text-red-500 block -ml-[0px]'>Enter valid arrival date </span>}
+              </div>
+              <div>
+                <h3 className="mt-2 -mb-1">Sitting Capacity</h3>
+                <input type="number" value={maxPersons}
+                  onChange={(ev: any) => setmaxPersons(ev.target.value)} />
+                  {error && !maxPersons && <span className='text-red-500 block -ml-[0px]'>Enter valid maxPersons </span>}
+              </div>
+              <div>
+                <h3 className="mt-2 -mb-1">Rent per day</h3>
+                <input type="number" value={cost}
+                  onChange={(ev: any) => setCost(ev.target.value)} />
+                  {error && !cost && <span className='text-red-500 block -ml-[0px]'>Enter valid price</span>}
+              </div>
+            </div>
+            <button className="primary my-4" onClick={() => add()}>Save</button>
+          </div>
         </div>
-        <div>
-          <h3 className="mt-2 -mb-1">Check out time</h3>
-          <input type="date"
-
-            onChange={(event) => setCompany(event.target.value)}
-            placeholder="11"
-            value={company} />
-          {error && !company && <span className='text-red-500 block -ml-[0px]'>Enter valid Checkout </span>}
-        </div>
-        <div>
-          <h3 className="mt-2 -mb-1">Sitting Capacity</h3>
-          <input type="number" value={maxGuests}
-            onChange={(ev: any) => setMaxGuests(ev.target.value)} />
-            {error && !maxGuests && <span className='text-red-500 block -ml-[0px]'>Enter valid maxGuests </span>}
-        </div>
-        <div>
-          <h3 className="mt-2 -mb-1">Rent per day</h3>
-          <input type="number" value={cost}
-            onChange={(ev: any) => setCost(ev.target.value)} />
-            {error && !cost && <span className='text-red-500 block -ml-[0px]'>Enter valid price</span>}
-        </div>
-      </div>
-      <button className="primary my-4" onClick={() => add()}>Save</button>
-    </div>
-  </div>
   )
 }
