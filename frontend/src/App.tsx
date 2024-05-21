@@ -44,7 +44,11 @@ import TourPackageListing from "./components/TourPackageListing";
 import TravelGuideBooking from "./components/TravelGuideBooking";
 import TravelGuideListing from "./components/TravelGuideListing";
 import Error from "./components/Error";
-
+import AboutUs from "./components/AboutUs";
+import ContactUs from "./components/ContactUs";
+import PrivacyPolicy from "./components/PrivacyPolicy";
+import SafetyPolicy from "./components/SafetyPolicy";
+import Terms from "./components/Terms";
 
 function App() {
   return (
@@ -85,11 +89,11 @@ function App() {
             path="booked-guides"
             element={<ProtectedRoutes><BookedGuides /></ProtectedRoutes>}
           ></Route>
-          {/* <Route
+          <Route
 
             path="/tourpackagelisting"
             element={<ProtectedRoutes><TourPackageListing /></ProtectedRoutes>}
-          ></Route> */}
+          ></Route>
 
           {/* <Route
 
@@ -231,6 +235,30 @@ function App() {
 
             path="/travelguidebooking"
             element={<ProtectedRoutes><TravelGuideBooking /></ProtectedRoutes>}
+          ></Route>
+          <Route
+            path="/aboutus"
+            element={<AboutUs />}
+          ></Route>
+          <Route
+
+            path="/contactus"
+            element={<ContactUs />}
+          ></Route>
+          <Route
+
+            path="/privacypolicy"
+            element={<PrivacyPolicy />}
+          ></Route>
+          <Route
+
+            path="/safetypolicy"
+            element={<SafetyPolicy />}
+          ></Route>
+          <Route
+
+            path="/terms"
+            element={<Terms />}
           ></Route>
 
           <Route

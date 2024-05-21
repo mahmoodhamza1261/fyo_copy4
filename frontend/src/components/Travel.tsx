@@ -34,15 +34,15 @@ const Travel: FC<{ data?: any }> = ({ data }) => {
   return (
     <div className="p-2 px-5 bg-primarycolor">
       <div className="flex flex-row">
-        <button
+        {/* <button
           className={`   px-3 py-2 mb-2 rounded-xl border-gray-600  shadow-lg text-lg font-medium hover:shadow-lg hover:scale-105 duration-300  ${
             travelOption === "oneway" ? "bg-secondarycolor text-white" : ""
           }`}
           onClick={() => handleSelectOption("oneway")}
         >
           One way
-        </button>
-        <button
+        </button> */}
+        {/* <button
           className={` px-3 py-2 mb-2 rounded-xl shadow-lg text-lg font-medium hover:shadow-lg hover:scale-105 duration-300 ${
             travelOption === "roundtrip" ? "bg-secondarycolor text-white" : ""
           }`}
@@ -57,12 +57,12 @@ const Travel: FC<{ data?: any }> = ({ data }) => {
           onClick={() => handleSelectOption("multicity")}
         >
           Multicity
-        </button>
+        </button> */}
       </div>
       <div>
-        {travelOption === "oneway" && <Oneway data={data} />}
-        {travelOption === "roundtrip" && <Roundtrip data={data} />}
-        {travelOption === "multicity" && <Multicity data={data} />}
+        {<Oneway data={data} />}
+        {/* {travelOption === "roundtrip" && <Roundtrip data={data} />}
+        {travelOption === "multicity" && <Multicity data={data} />} */}
       </div>
     </div>
   );

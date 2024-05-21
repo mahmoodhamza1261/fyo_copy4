@@ -61,7 +61,7 @@ const app = initializeApp(firebaseConfig);
       resp.json().then((result) => {
         if (result.name) {
           console.log("resulyt",result)
-          if (result.name == "admin") {
+          if (result.name == "Admin") {
            
               alert("signup success")
               localStorage.setItem('user', JSON.stringify(result))
@@ -73,7 +73,7 @@ const app = initializeApp(firebaseConfig);
            
           }
          
-          if (result.name!="admin") 
+          if (result.name!="Admin") 
           {
             
             alert("signup success")

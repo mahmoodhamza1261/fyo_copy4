@@ -3,11 +3,13 @@
 import React, { useState, useEffect } from "react";
 import TravelForm from "./TravelForm";
 import FallIntoTravel from "./FallIntoTravel";
+import FallIntoTravel2 from "./FallIntoTravel2";
 // import MyFooter from "./MyFooter";
 import mainimage from '../../public/mountain.jpg'
 import AboutUs from "./AboutUs";
 import Services from "./Services";
 import { Link, useNavigate } from 'react-router-dom';
+import Journey from "./journey";
 
 function Home() {
   // @ts-ignore
@@ -57,7 +59,7 @@ if(result.length > 0){
     //   [parsedResult[i], parsedResult[j]] = [parsedResult[j], parsedResult[i]];
     // }
     const capitalizedResult = parsedResult.map((phrase) =>
-      phrase
+      phrase 
         .split(' ')
         .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
         .join(' ')
@@ -103,21 +105,23 @@ if(result.length > 0){
       i2={'/public/skardu.jpg'}
       i3={'/public/swat.jpg'}
       i4={'/public/Attabad.jpg'}
+      type={"package"}
       />
     
-      <AboutUs/>
-      <FallIntoTravel
+      <Journey/>
+      <FallIntoTravel2
       heading={"Top Rated Hotels"}
       title={"Luxury Residences"}
       details={"Book Hotel"}
-      description1={"Skardu Hotel"}
-      description2={"Skardu Hotel"}
-      description3={"Skardu Hotel"}
-      description4={"Skardu Hotel"}
+      description1={"serena hotel gilgit"}
+      description2={"hunza serena inn"}
+      description3={"shangrila resort skardu"}
+      description4={"pearl continental bhurban"}
       i1={'/public/hotel.jpeg'}
       i2={'/public/hotel.jpeg'}
       i3={'/public/hotel.jpeg'}
       i4={'/public/hotel.jpeg'}
+      type={"hotel"}
       />
       <Services/>
     
@@ -126,14 +130,15 @@ if(result.length > 0){
       heading={"Top Rated Car Rentals"}
       title={"Drive with Excellence"}
       details={"Book Car"}
-      description1={"Isb-Honda Civic"}
-      description2={"Isb-Honda Civic"}
-      description3={"Isb-Honda Civic"}
-      description4={"Isb-Honda Civic"}
+      description1={"toyota corolla"}
+      description2={"honda civic"}
+      description3={"ford mustang"}
+      description4={"bmw 5 series"}
       i1={'../../public/civic.jpg'}
       i2={'../../public/civic.jpg'}
       i3={'../../public/civic.jpg'}
       i4={'../../public/civic.jpg'}
+      type={"car"}
       />
     </div>
 

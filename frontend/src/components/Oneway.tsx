@@ -15,15 +15,14 @@ import PersonsDropdown from "./PersonsDropdown";
 const Oneway: FC<{ data?: any }> = ({ data }) => {
   console.log("oneway data", data);
   const cities = [
-    { value: "Pirchinasi ", code: "PRC", airport: "MainCity " },
+    { value: "neelam valley", code: "PRC", airport: "MainCity " },
     {
-      value: "Skardu",
-      code: "SKR",
-      airport: "MainCity ",
+      value: "ansoo lake",
+   
     },
-    { value: "Chitral", code: "CTR", airport: "Main City " },
-    { value: "Attabad", code: "ATR", airport: "Main City " },
-    { value: "Naran", code: "NAR", airport: "Main City " },
+    { value: "attabad lake",  },
+    { value: "badshahi mosque", },
+  
 
   ];
 
@@ -46,11 +45,11 @@ const Oneway: FC<{ data?: any }> = ({ data }) => {
 
   // Function to navigate to flight listing page with data
   const navigateto = () => {
-    if (departureCity == "" || arrivalCity == ""|| travelers==0) {
-      alert("fill in all fields");
+    // if (departureCity == "" || arrivalCity == ""|| travelers==0) {
+    //   alert("fill in all fields");
      
-      return;
-    }
+    //   return;
+    // }
     !localStorage.getItem('user')&&alert('plz login first')
     // Construct the data object
     const searchData = {
@@ -133,7 +132,7 @@ const Oneway: FC<{ data?: any }> = ({ data }) => {
         <PersonsDropdown data={data} />
       </div>
       <div className="flex flex-row custom-screen  mr-3 md:space-x-2  w-full ">
-        <div className="max-h-[200px] min-w-[60px] mb-2 ">
+        {/* <div className="max-h-[200px] min-w-[60px] mb-2 ">
           <AutoComplete
             defaultValue={departureCity}
             style={{ width: 300 }}
@@ -176,15 +175,15 @@ const Oneway: FC<{ data?: any }> = ({ data }) => {
               onChange={(e) => setDepartureCity(e.target.value)}
             />
           </AutoComplete>
-        </div>
+        </div> */}
 
-        <div className="max-h-[50px] min-w-[60px] mb-2">
+        <div className="max-h-[50px] min-w-[60px] relative mb-2 md:w-[380px]">
           <AutoComplete
-            className="min-w-[300px] max-h-[200px] "
+            className="min-w-[300px] max-h-[200px] w-full "
             defaultValue={arrivalCity}
             options={cities.map((city) => ({
-              value: `${city.value} (${city.code})`,
-              code: city.code,
+              value: `${city.value}`,
+            
               label: (
                 <div className="flex mb-2 ">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6 -rotate-90 mr-1">
@@ -192,9 +191,9 @@ const Oneway: FC<{ data?: any }> = ({ data }) => {
 </svg>
 
                   <p className=" font-semibold">
-                    {`${city.value} (${city.code})`}
+                    {`${city.value} `}
                     <br />
-                    <span className="text-[12px]">{`${city.airport}`}</span>
+                    {/* <span className="text-[12px]">{`${city.airport}`}</span> */}
                   </p>
                 </div>
               ),
@@ -215,9 +214,9 @@ const Oneway: FC<{ data?: any }> = ({ data }) => {
           </AutoComplete>
         </div>
 
-        <div className="max-h-[50px] min-w-[60px] relative mb-2">
+        <div className="max-h-[50px] min-w-[60px] relative mb-2 md:w-[380px]">
           <AutoComplete
-            className="min-w-[300px] "
+            className="min-w-[300px] w-full "
             value={startDate ? `${startDate.toLocaleDateString()} ` : ``}
             onClick={handleClick}
           >

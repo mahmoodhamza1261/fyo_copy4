@@ -12,18 +12,21 @@ const FallIntoTravel = ({
   i1,
   i2,
   i3,
-  i4
+  i4,
+  type
 }:any) => {
 //get packages
 const navigate = useNavigate()
 const [state, setState] = useState([])
+const [car, setCar] = useState([])
+const [hotel, setHotel] = useState([])
 useEffect(() => {
 
   
   getProducts()
 }, [])
 async function getProducts() {
-  await fetch("http://localhost:4000/package-list", {
+   fetch("http://localhost:4000/package-list", {
     headers: {
       authorization: "bearer " + JSON.parse(localStorage.getItem('token'))
     }
@@ -39,35 +42,109 @@ console.log("description1",description1)
 state.forEach(place => {
     console.log("placs name",place.name.toLowerCase())
 });
+ fetch("http://localhost:4000/car-list", {
+    headers: {
+      authorization: "bearer " + JSON.parse(localStorage.getItem('token'))
+    }
+  }).then(async (resp) => {
+    await resp.json().then((result) => {
+      console.log(result)
+      // console.log(result.map((i)=>i.name))
+      setCar(result)
+    }) 
+  })
+ fetch("http://localhost:4000/hotel-list", {
+    headers: {
+      authorization: "bearer " + JSON.parse(localStorage.getItem('token'))
+    }
+  }).then(async (resp) => {
+    await resp.json().then((result) => {
+      console.log(result)
+      // console.log(result.map((i)=>i.name))
+      setHotel(result)
+    }) 
+  })
+
 
 const check1=()=>{
+  car.forEach(c => {
+    if( c.name=="toyota corolla"){
+      console.log("hiiii",c._id)
+      navigate(`/carbooking/${c._id}`)
+    }
+  })
+  hotel.forEach(c => {
+    if( c.name=="serena hotel gilgit"){
+      console.log("hiiii",c._id)
+      navigate(`/hotelbooking/${c._id}`)
+    }
+  })
   state.forEach(place => {
-    if(place.name.toLowerCase().includes(description1) || place.name.toLowerCase().includes("neelam valley")){
+   
+ 
+    if(type=="package" &&( place.name.toLowerCase().includes(description1) || place.name.toLowerCase().includes("neelam valley"))){
       console.log("hiiii",place._id)
       navigate(`/tourpackagebooking/${place._id}`)
     }
+  
   });
 }
 
 const check2=()=>{
+  car.forEach(c => {
+    if(type=="hotel" &&(c.name.toLowerCase().includes(description1) || c.name.toLowerCase().includes("honda civic"))){
+      console.log("hiiii",c._id)
+      navigate(`/carbooking/${c._id}`)
+    }
+  })
+  hotel.forEach(h => {
+    if(type=="hotel" &&(h.name.toLowerCase().includes(description1) || h.name.toLowerCase().includes("hunza serena inn")) ){
+      console.log("hiiii",h._id)
+      navigate(`/hotelbooking/${h._id}`)
+    }
+  })
   state.forEach(place => {
-    if(place.name.toLowerCase().includes(description1) || place.name.toLowerCase().includes("ansoo lake")){
+    if(type=="package" &&(place.name.toLowerCase().includes(description1) || place.name.toLowerCase().includes("ansoo lake"))){
       console.log("hiiii",place._id)
       navigate(`/tourpackagebooking/${place._id}`)
     }
   });
 }
 const check3=()=>{
+  car.forEach(c => {
+    if( c.name=="ford mustang"){
+      console.log("hiiii",c._id)
+      navigate(`/carbooking/${c._id}`)
+    }
+  })
+  hotel.forEach(c => {
+    if( c.name=="shangrila resort" && type=="hotel"){
+      console.log("hiiii",c._id)
+      navigate(`/hotelbooking/${c._id}`)
+    }
+  })
   state.forEach(place => {
-    if(place.name.toLowerCase().includes(description1) || place.name.toLowerCase().includes("attabad lake")){
+    if(type=="package" &&(place.name.toLowerCase().includes(description1) || place.name.toLowerCase().includes("attabad lake"))){
       console.log("hiiii",place._id)
       navigate(`/tourpackagebooking/${place._id}`)
     }
   });
 }
 const check4=()=>{
+  car.forEach(c => {
+    if( c.name=="bmw 5 series"){
+      console.log("hiiii",c._id)
+      navigate(`/carbooking/${c._id}`)
+    }
+  })
+  hotel.forEach(c => {
+    if( c.name=="pearl continental" && type=="hotel"){
+      console.log("hiiii",c._id)
+      navigate(`/hotelbooking/${c._id}`)
+    }
+  })
   state.forEach(place => {
-    if(place.name.toLowerCase().includes(description1) || place.name.toLowerCase().includes("badshahi masjid")){
+    if(type=="package" &&(place.name.toLowerCase().includes(description1) || place.name.toLowerCase().includes("badshahi masjid"))){
       console.log("hiiii",place._id)
       navigate(`/tourpackagebooking/${place._id}`)
     }
